@@ -9,6 +9,7 @@
 \usepackage{lmodern}
 \usepackage{geometry}
 \geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+\usepackage{graphicx}
 
 \usepackage{booktabs}
 \usepackage{longtable}
@@ -116,6 +117,13 @@ In diesem Schritt wird der Einfluss des Fertigungsprozesses (z.\,B.\ der
 Temperaturzyklus beim Laserschweißen oder das Abkühlen im
 Presshärtewerkzeug) auf die Chemie des Materials berechnet.
 
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.8\textwidth]{step1_thermo_kinetics.png}
+  \caption{Stufe 1: Thermo-kinetische Prozesssimulation als Basis der
+           metallurgischen Zustandsvorhersage.}
+\end{figure}
+
 \textbf{Was simuliert wird:}
 \begin{itemize}[leftmargin=*]
   \item Die zeitliche Entwicklung des Werkstoffgefüges.
@@ -148,6 +156,13 @@ Gleichgewichte (Energieminimierung) und berechnet Diffusionsgeschwindigkeiten.
 Die abstrakten Zahlenwerte aus Stufe~1 (Prozentsätze und Radien) werden in
 ein echtes, geometrisches 3D-Modell übersetzt -- das sogenannte
 \emph{SVE (Statistical Volume Element)}.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.8\textwidth]{step2_microstructure_cube.png}
+  \caption{Stufe 2: Generierung eines stochastischen 3D-Gefügezwillings
+           (SVE) aus den Prozessdaten.}
+\end{figure}
 
 \textbf{Was simuliert wird:}
 \begin{itemize}[leftmargin=*]
@@ -182,6 +197,13 @@ zugewiesen ist.
 Das Herzstück der ICME-Kette: der SVE-Würfel aus Stufe~2 wird virtuell in
 alle Richtungen gezogen, gedrückt und geschert.
 
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.8\textwidth]{step3_crystal_plasticity.png}
+  \caption{Stufe 3: Virtuelle mikromechanische Prüfung mittels
+           Kristallplastizität.}
+\end{figure}
+
 \textbf{Was simuliert wird:}
 \begin{itemize}[leftmargin=*]
   \item Die makroskopische Last wird auf das Kristallgitter übertragen.
@@ -215,6 +237,13 @@ Datenwolke lokaler Versagenszeitpunkte (Streuung).
 Die Mikrodaten aus Stufe~3 werden verdichtet, da ein Makro-Crash-Solver
 (LS-DYNA) direkt damit nicht umgehen kann.
 
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.8\textwidth]{step4_failure_surface.png}
+  \caption{Stufe 4: KI-gestützte Homogenisierung und Aufbau einer
+           makroskopischen Versagensfläche.}
+\end{figure}
+
 \textbf{Was hier geschieht:} Data Science statt physikalischer Simulation.
 Ein Surrogate Model wird trainiert, das für jede beliebige Makro-Dehnung und
 Temperatur sofort die zugehörige Makro-Spannung liefert, ohne die
@@ -241,6 +270,13 @@ mikroskopischem Rauschen.
 
 Die homogenisierten, virtuellen Kurven werden in die von OEMs geforderten
 Materialkarten überführt.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.8\textwidth]{step5_material_card.png}
+  \caption{Stufe 5: Überführung der virtuellen Kurven in kalibrierte
+           Crash-Materialkarten.}
+\end{figure}
 
 \textbf{Was simuliert wird:} Parameter-Identifikation (\emph{Reverse
 Engineering}). Ein Algorithmus variiert die Parameter der GISSMO- oder
@@ -624,6 +660,13 @@ Wir ersetzen hunderte physische Tests durch eine automatisierte
   \item \emph{Industrielle Validierung (CTAG, CIDAUT, OEMs):} Absicherung an
         realen Megacastings und B-Säulen.
 \end{enumerate}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.85\textwidth]{step6_workflow_overview.png}
+  \caption{Gesamtüberblick des automatisierten ICME-Workflows von der
+           Legierung bis zur anwendbaren Crashkarte.}
+\end{figure}
 
 \textbf{Der wissenschaftliche Fokus: Mikrostruktur-DNA.}
 Der Kern des Projekts ist die Erkenntnis, dass das Gefüge die Mechanik
