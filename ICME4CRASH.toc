@@ -1,0 +1,31 @@
+\babel@toc {ngerman}{}\relax 
+\contentsline {section}{\numberline {1}Einleitung}{2}{section.1}%
+\contentsline {section}{\numberline {2}Forschungsansatz}{2}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Stufe 1: Thermo-Kinetische Prozesssimulation -- Die \emph {Metallurgische DNA}}{2}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Stufe 2: Gefüge-Generierung -- Der stochastische digitale Zwilling}{3}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Stufe 3: Mikromechanische Prüfung -- Das virtuelle Labor}{4}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4}Stufe 4: Homogenisierung \& KI-Surrogate Modeling -- Der Übersetzer}{5}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5}Stufe 5: Materialkarten-Kalibrierung -- Crash Readiness}{6}{subsection.2.5}%
+\contentsline {section}{\numberline {3}Projektziele}{7}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Wissenschaftliche Ziele (Scientific Objectives -- SO)}{7}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Technologische Ziele (Technological Objectives -- TO)}{7}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Impact-Ziele (Impact Objectives -- IO)}{8}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Executive Summary -- Kernziel}{8}{subsection.3.4}%
+\contentsline {section}{\numberline {4}Mögliches Konsortium und Rollenverteilung}{8}{section.4}%
+\contentsline {section}{\numberline {5}Workpackage-Struktur}{9}{section.5}%
+\contentsline {subsection}{\numberline {5.1}WP\,1: Projektmanagement \& Strategische Koordination}{9}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}WP\,2: Werkstoff-Engineering \& Prozess-Definition}{9}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}WP\,3: Experimentelle Hochdurchsatz-Charakterisierung}{10}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.4}WP\,4: Multiskalen-Physik \& Virtuelles Labor}{10}{subsection.5.4}%
+\contentsline {subsection}{\numberline {5.5}WP\,5: KI-Homogenisierung \& Tool-Integration}{10}{subsection.5.5}%
+\contentsline {subsection}{\numberline {5.6}WP\,6: Demonstratoren \& System-Validierung (TRL\,5/6)}{10}{subsection.5.6}%
+\contentsline {subsection}{\numberline {5.7}WP\,7: Industrielle Use Cases \& OEM-Akzeptanz}{11}{subsection.5.7}%
+\contentsline {subsection}{\numberline {5.8}WP\,8: Exploitation, Standardisierung \& Dissemination}{11}{subsection.5.8}%
+\contentsline {section}{\numberline {6}Logischer Datenfluss (Gantt-Logik)}{11}{section.6}%
+\contentsline {section}{\numberline {7}Budget-Allokation (Beispiel bei 8\,Mio.\ €)}{11}{section.7}%
+\contentsline {section}{\numberline {8}Wichtige Meilensteine (Milestones)}{11}{section.8}%
+\contentsline {section}{\numberline {9}V-MAT-2030 -- Projektpitch}{12}{section.9}%
+\contentsline {section}{\numberline {10}Strategische Positionierungsoptionen}{13}{section.10}%
+\contentsline {subsection}{\numberline {10.1}Option~1: Der \emph {Physics-First}-Weg (Klassische RIA)}{13}{subsection.10.1}%
+\contentsline {subsection}{\numberline {10.2}Option~2: Der \emph {Pragmatic-AI}-Weg (Digitaler Schatten)}{13}{subsection.10.2}%
+\contentsline {subsection}{\numberline {10.3}Option~3: Der \emph {Gigacasting-Sovereignty}-Weg (Application-Driven)}{15}{subsection.10.3}%
