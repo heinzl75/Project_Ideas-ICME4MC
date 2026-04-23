@@ -1,0 +1,705 @@
+\documentclass[12pt,a4paper]{article}
+
+% -----------------------------------------------------------------------
+% Packages
+% -----------------------------------------------------------------------
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{lmodern}
+\usepackage{geometry}
+\geometry{left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{parskip}
+\usepackage{microtype}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue!70!black,
+    urlcolor=blue!70!black,
+    pdftitle={ICME4CRASH},
+    pdfauthor={Konsortium ICME4CRASH},
+}
+
+% -----------------------------------------------------------------------
+% Formatting helpers
+% -----------------------------------------------------------------------
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+
+% -----------------------------------------------------------------------
+\begin{document}
+
+% =======================================================================
+% Title
+% =======================================================================
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    {\Huge\bfseries ICME4CRASH\par}
+    \vspace{0.5cm}
+    {\large\itshape Vollständig virtuelle, KI-gestützte Materialkarten für
+    crashrelevante Multi-Material-Strukturen\par}
+    \vspace{1.5cm}
+    {\large Projektkonzept -- EU Horizon Europe RIA\par}
+    \vfill
+    {\normalsize Stand: April 2026}
+\end{titlepage}
+
+\tableofcontents
+\clearpage
+
+% =======================================================================
+\section{Einleitung}
+% =======================================================================
+
+Die moderne Automobilindustrie setzt zunehmend auf eine Strategie des
+Materialmix (\emph{Multi-Material-Mix}), um die strengen Anforderungen an
+Fahrzeugsicherheit, Kraftstoffeffizienz und Gewichtsreduzierung zu erfüllen.
+Dieser Ansatz kombiniert ultrahochfeste Stähle wie 22MnB5 mit
+Hochleistungs-Aluminiumlegierungen (der Serien 6\textit{xxx} und
+7\textit{xxx}). Die mechanische Integrität und das Crashverhalten dieser
+Leichtbaukonstruktionen hängen jedoch stark von ihrer komplexen
+mikrostrukturellen Entwicklung während der Fertigung ab~-- von
+Abschreckprozessen bei Stahl bis hin zur Aushärtungskinetik bei Aluminium.
+
+Traditionell erfordert die Charakterisierung des Versagensverhaltens für
+Crash-Modelle wie \emph{LS-DYNA's GISSMO} oder \emph{ESI VPS's MMC}
+umfangreiche experimentelle Tests für jeden spezifischen Material- und
+Prozesszustand. Diese Tests sind teuer und zeitaufwendig und liefern in der
+Regel nur die Materialdaten für den idealen Ausgangszustand. Insbesondere an
+thermischen Verbindungen~-- die ohnehin aufgrund von Kerbwirkungen
+hochkritisch sein können~-- können die Materialeigenschaften erheblich von
+denen des Grundmaterials abweichen. Für diese geschwächten
+Wärmeeinflusszonen liegen in der Regel keine Materialdatenblätter vor, was
+bedeutet, dass die strukturelle Integrität in diesen Bereichen oft
+überschätzt wird. Dies erfordert daher die Entwicklung rein virtueller
+Materialkarten, die nicht nur die chemische Zusammensetzung, sondern auch
+die Zeit-Temperatur-Zyklen berücksichtigen, denen das Material ausgesetzt
+war.
+
+Diese Forschungsarbeit schlägt einen robusten, vollständig virtuellen
+Charakterisierungsrahmen vor, der auf \emph{Integrated Computational
+Materials Engineering} (ICME) basiert. Durch die Nutzung thermokinetischer
+Simulationen (z.\,B.\ \textbf{MatCalc}) zur Vorhersage von Phasen- und
+Ausscheidungszuständen und deren Kopplung mit stochastischen \emph{Statistical
+Volume Elements} (SVEs) wird die durch lokale mikrostrukturelle Variationen
+bedingte inhärente Materialstreuung erfasst.
+
+Unter Verwendung von Monte-Carlo-basierter Kristallplastizität
+(CPFEM/CPFFT) leitet dieser Arbeitsablauf statistisch validierte
+Versagensflächen über verschiedene Spannungszustände hinweg ab. Diese
+Methode bietet einen skalierbaren \emph{Digital Twin} für das
+Materialverhalten und ermöglicht die schnelle Erstellung hochpräziser
+Materialkarten für heterogene Automobilstrukturen bei gleichzeitiger
+erheblicher Reduzierung der Kosten für physikalische Prototypen.
+
+% =======================================================================
+\section{Forschungsansatz}
+% =======================================================================
+
+Der Forschungsansatz gliedert sich in eine durchgehende fünfstufige
+ICME-Toolkette (\emph{Digital Thread} von der Legierung bis zur
+Crash-Karte):
+
+% -----------------------------------------------------------------------
+\subsection{Stufe 1: Thermo-Kinetische Prozesssimulation -- Die
+            \emph{Metallurgische DNA}}
+% -----------------------------------------------------------------------
+
+In diesem Schritt wird der Einfluss des Fertigungsprozesses (z.\,B.\ der
+Temperaturzyklus beim Laserschweißen oder das Abkühlen im
+Presshärtewerkzeug) auf die Chemie des Materials berechnet.
+
+\textbf{Was simuliert wird:}
+\begin{itemize}[leftmargin=*]
+  \item Die zeitliche Entwicklung des Werkstoffgefüges.
+  \item Welche Phasen entstehen (z.\,B.\ Austenit wandelt sich in Martensit
+        oder Bainit um) und wie groß werden die Phasenanteile.
+  \item Wie Ausscheidungen (Präzipitate) in einer 6\textit{xxx}-Aluminiumlegierung
+        während der Warmauslagerung oder durch die Schweißhitze wachsen.
+\end{itemize}
+
+\textbf{Methodik:} CALPHAD (\emph{Calculation of Phase Diagrams}) gekoppelt
+mit kinetischen Ratengleichungen. Die Methodik löst thermodynamische
+Gleichgewichte (Energieminimierung) und berechnet Diffusionsgeschwindigkeiten.
+
+\textbf{Software-Optionen:}
+\begin{itemize}[leftmargin=*]
+  \item \textbf{MatCalc} -- Der Goldstandard aus Österreich/Wien; extrem stark
+        bei Ausscheidungskinetik, perfekter Fit für das MCL Leoben.
+  \item Thermo-Calc (mit Zusatzmodul TC-PRISMA).
+  \item JMatPro -- Sehr industrienah; liefert direkt mechanische Basiswerte.
+\end{itemize}
+
+\textbf{Output für Stufe 2:} Phasenanteile (z.\,B.\ 80\,\% Martensit,
+20\,\% Bainit), Versetzungsdichte und Teilchengrößen.
+
+% -----------------------------------------------------------------------
+\subsection{Stufe 2: Gefüge-Generierung -- Der stochastische digitale
+            Zwilling}
+% -----------------------------------------------------------------------
+
+Die abstrakten Zahlenwerte aus Stufe~1 (Prozentsätze und Radien) werden in
+ein echtes, geometrisches 3D-Modell übersetzt -- das sogenannte
+\emph{SVE (Statistical Volume Element)}.
+
+\textbf{Was simuliert wird:}
+\begin{itemize}[leftmargin=*]
+  \item Ein virtueller, dreidimensionaler Würfel des Mikrokosmos wird
+        gebaut und mit Körnern gefüllt, deren Größe, Form und
+        kristallographische Orientierung (Textur) der Realität entsprechen.
+  \item Die in Stufe~1 berechneten Phasen werden in dieses Gitter eingefüllt.
+  \item Um die Streuung der Natur abzubilden, werden oft Dutzende leicht
+        unterschiedlicher SVE-Würfel für denselben Materialzustand generiert.
+\end{itemize}
+
+\textbf{Methodik:} Voronoi-Tesselation oder Monte-Carlo-Potts-Modelle.
+
+\textbf{Software-Optionen:}
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Neper} -- Open Source; extrem mächtig für komplexe
+        Voronoi-Strukturen.
+  \item \textbf{DREAM.3D} -- Open Source; Standard-Tool zur Rekonstruktion
+        von Gefügen aus EBSD-Messdaten.
+  \item GeoDict / Digimat-FE -- Kommerzielle Lösungen für Faserverbunde oder
+        komplexe Defekte (Poren).
+\end{itemize}
+
+\textbf{Output für Stufe 3:} Ein 3D-Geometrie-Netz (Mesh oder Voxel-Grid)
+des Gefüges, in dem jedem Element eine Phase und eine Kristallorientierung
+zugewiesen ist.
+
+% -----------------------------------------------------------------------
+\subsection{Stufe 3: Mikromechanische Prüfung -- Das virtuelle Labor}
+% -----------------------------------------------------------------------
+
+Das Herzstück der ICME-Kette: der SVE-Würfel aus Stufe~2 wird virtuell in
+alle Richtungen gezogen, gedrückt und geschert.
+
+\textbf{Was simuliert wird:}
+\begin{itemize}[leftmargin=*]
+  \item Die makroskopische Last wird auf das Kristallgitter übertragen.
+  \item Bewegung von Versetzungen (Gitterbaufehler) durch das Material.
+  \item Lokale Spannungsstauungen an Korngrenzen; plastisches Fließen weicher
+        Körner (Ferrit) gegenüber harten Körnern (Martensit).
+  \item Bestimmung der Dehnung, bei der das Gitter lokal reißt
+        (Schädigungsinitiation durch Porenwachstum oder Scherbänder).
+\end{itemize}
+
+\textbf{Methodik:} CPFFT (\emph{Crystal Plasticity Fast Fourier Transform})
+oder CPFEM (\emph{Crystal Plasticity Finite Element Method}).
+
+\textbf{Software-Optionen:}
+\begin{itemize}[leftmargin=*]
+  \item \textbf{DAMASK} (\emph{Düsseldorf Advanced Material Simulation Kit})
+        -- entwickelt vom MPIE; das Nonplusultra der Open-Source-Kristallplastizität.
+  \item Abaqus mit speziellen User-Material-Subroutinen (UMAT).
+  \item Simcenter~3D / MultiMechanics -- kommerzieller Ansatz von Siemens.
+\end{itemize}
+
+\textbf{Output für Stufe 4:} Hunderte virtuelle Spannungs-Dehnungs-Kurven
+für verschiedenste Triaxialitäten (Zug, Druck, Scherung) inklusive einer
+Datenwolke lokaler Versagenszeitpunkte (Streuung).
+
+% -----------------------------------------------------------------------
+\subsection{Stufe 4: Homogenisierung \& KI-Surrogate Modeling -- Der
+            Übersetzer}
+% -----------------------------------------------------------------------
+
+Die Mikrodaten aus Stufe~3 werden verdichtet, da ein Makro-Crash-Solver
+(LS-DYNA) direkt damit nicht umgehen kann.
+
+\textbf{Was hier geschieht:} Data Science statt physikalischer Simulation.
+Ein Surrogate Model wird trainiert, das für jede beliebige Makro-Dehnung und
+Temperatur sofort die zugehörige Makro-Spannung liefert, ohne die
+Kristallplastizität erneut berechnen zu müssen.
+
+\textbf{Methodik:} Volumenmittelung (\emph{Volume Averaging}) der
+Spannungs-Dehnungs-Felder; Einsatz von Machine Learning (Neuronale Netze)
+oder Response Surface Methods zur Erstellung einer durchgehenden
+Versagensfläche (\emph{Failure Surface}).
+
+\textbf{Software-Optionen:}
+\begin{itemize}[leftmargin=*]
+  \item Python-Ökosystem: PyTorch, TensorFlow, Scikit-learn.
+  \item Altair HyperStudy / LS-OPT -- für automatisierte Sensitivitätsanalysen.
+\end{itemize}
+
+\textbf{Output für Stufe 5:} Mathematisch saubere Kurvenscharen
+(deterministisch oder mit Konfidenzintervallen), frei von
+mikroskopischem Rauschen.
+
+% -----------------------------------------------------------------------
+\subsection{Stufe 5: Materialkarten-Kalibrierung -- Crash Readiness}
+% -----------------------------------------------------------------------
+
+Die homogenisierten, virtuellen Kurven werden in die von OEMs geforderten
+Materialkarten überführt.
+
+\textbf{Was simuliert wird:} Parameter-Identifikation (\emph{Reverse
+Engineering}). Ein Algorithmus variiert die Parameter der GISSMO- oder
+MMC-Gleichungen, bis die analytische Karte exakt das Verhalten der
+KI-Daten aus Stufe~4 widerspiegelt. Besonders wichtig ist die
+\textbf{Elementgrößen-Regularisierung}: Der Algorithmus berechnet, wie die
+Karte reagieren muss, wenn das Finite-Element in der Crashsimulation 1\,mm
+groß ist im Vergleich zu 5\,mm.
+
+\textbf{Methodik:} Nicht-lineare Optimierungsalgorithmen (z.\,B.\ Genetische
+Algorithmen, Levenberg-Marquardt) zur Minimierung der Fehlerquadratsumme
+zwischen virtueller Target-Kurve und Modell-Kurve.
+
+\textbf{Software-Optionen:}
+\begin{itemize}[leftmargin=*]
+  \item \textbf{LS-OPT} -- Der Standard für LS-DYNA-Karten.
+  \item Visual-Environment / PAM-OPT -- für ESI PAM-CRASH.
+  \item MATLAB / Python mit Optimierungs-Toolboxen für maximale Kontrolle.
+\end{itemize}
+
+% =======================================================================
+\section{Projektziele}
+% =======================================================================
+
+Für einen RIA-Antrag dieser Größenordnung müssen die \emph{Objectives} eine
+perfekte Balance zwischen wissenschaftlicher Exzellenz und industriellem
+Impact finden. In der EU-Nomenklatur werden sie unterteilt in
+\emph{Scientific Objectives} (SO), \emph{Technological Objectives} (TO) und
+\emph{Impact Objectives} (IO).
+
+% -----------------------------------------------------------------------
+\subsection{Wissenschaftliche Ziele (Scientific Objectives -- SO)}
+% -----------------------------------------------------------------------
+
+\begin{description}[leftmargin=*, style=nextline]
+  \item[SO\,1: Physikbasierte Versagensvorhersage auf der Mesoskala]
+    Entwicklung eines stochastischen Multiskalen-Frameworks, das die
+    kristallplastische Verformung und Schädigungsinitiation unter
+    Berücksichtigung von prozessinduzierten Defekten (z.\,B.\ Mikroporosität,
+    lokale Entfestigung in der HAZ) mit einer Genauigkeitssteigerung von
+    25\,\% gegenüber rein empirischen Modellen vorhersagt.
+
+  \item[SO\,2: Skalenübergreifende Schadensmechanik]
+    Erforschung der Korrelation zwischen mikroskopischen
+    Versagensmechanismen (\emph{Void Nucleation/Growth}) und makroskopischen
+    Versagensindikatoren (Triaxialität/Lode-Winkel) für mindestens drei neue
+    Leichtbau-Materialkombinationen (AHSS-Stahl, 6\textit{xxx}/7\textit{xxx}
+    Aluminium, Mischbau).
+
+  \item[SO\,3: Physics-Informed AI (PINN)]
+    Entwicklung neuartiger, physik-informierter neuronaler Netze zur
+    Homogenisierung, die sicherstellen, dass die KI-generierten Materialkarten
+    fundamentale thermodynamische und mechanische Erhaltungssätze einhalten.
+\end{description}
+
+% -----------------------------------------------------------------------
+\subsection{Technologische Ziele (Technological Objectives -- TO)}
+% -----------------------------------------------------------------------
+
+\begin{description}[leftmargin=*, style=nextline]
+  \item[TO\,1: Automatisierte ICME-Pipeline]
+    Implementierung einer lückenlosen, digitalen Toolkette, die den
+    Datenfluss von der thermo-kinetischen Simulation (MatCalc) über die
+    SVE-Generierung (MCL) bis zur fertigen Crash-Karte (ViF) automatisiert
+    und die Kalibrierungszeit um \textbf{über 80\,\%} reduziert (von Wochen
+    auf Tage).
+
+  \item[TO\,2: Interoperabilität \& Standardisierung]
+    Etablierung einer auf dem \textbf{VMAP-Standard} basierenden
+    Schnittstellen-Architektur, die den nahtlosen Datentransfer zwischen den
+    unterschiedlichen Software-Silos der Partner (MatCalc, DAMASK, LS-DYNA,
+    PAM-CRASH) ermöglicht.
+
+  \item[TO\,3: Virtuelle Validierungsumgebung]
+    Schaffung eines \emph{Virtual Material Labors}, das in der Lage ist, die
+    für eine GISSMO-Karte notwendigen Kurvenscharen rein virtuell zu erzeugen,
+    wobei lediglich 3--5 physische "`Ankerversuche"' zur finalen Absicherung
+    benötigt werden.
+\end{description}
+
+% -----------------------------------------------------------------------
+\subsection{Impact-Ziele (Impact Objectives -- IO)}
+% -----------------------------------------------------------------------
+
+\begin{description}[leftmargin=*, style=nextline]
+  \item[IO\,1: Reduktion physischer Ressourcen]
+    Demonstration einer Einsparung von \textbf{50--70\,\% der physischen
+    Materialcharakterisierungstests} bei der Einführung neuer
+    Werkstoff-Prozess-Kombinationen in die Fahrzeugserienentwicklung.
+
+  \item[IO\,2: Beschleunigung der Time-to-Market]
+    Verkürzung der Entwicklungszyklen für sicherheitskritische
+    Karosseriestrukturen um mindestens 20\,\% durch die Vorverlegung der
+    Materialabsicherung in die frühe digitale Phase (Soll-Ist-Abgleich am
+    Demonstrator TRL~5).
+
+  \item[IO\,3: Stärkung der europäischen Souveränität]
+    Etablierung eines europaweiten Standards für die virtuelle
+    Materialcharakterisierung, der die Abhängigkeit von proprietären,
+    außereuropäischen Datenbanken verringert und die Wettbewerbsfähigkeit von
+    Playern wie Gestamp, Magna und Stellantis sichert.
+\end{description}
+
+% -----------------------------------------------------------------------
+\subsection{Executive Summary -- Kernziel}
+% -----------------------------------------------------------------------
+
+\begin{quote}
+  \emph{"`Das Projekt \textbf{[PROJEKTNAME]} wird die erste europäische,
+  KI-gestützte ICME-Plattform etablieren, die den `Digital Thread' von der
+  metallurgischen Chemie bis zur Fahrzeug-Sicherheit schließt. Durch die
+  Integration prozessbedingter Defekte in die virtuelle Charakterisierung
+  wird die Lücke zwischen Labor und Realität geschlossen, wodurch physische
+  Crash-Validierungsschleifen drastisch reduziert und die Einführung
+  innovativer Leichtbauwerkstoffe radikal beschleunigt werden."'}
+\end{quote}
+
+\textbf{Tipp -- \emph{The Power of 5 OEMs}:} Nutzen Sie die Beteiligung von
+5~OEMs als \emph{Cross-Validation Objective}: Nachweis der universellen
+Anwendbarkeit der entwickelten Methodik durch die parallele Validierung an
+5~unterschiedlichen fahrzeugspezifischen Use-Cases (von der Batteriewanne
+bei Audi bis zum Fahrwerksteil bei Ford Otosan).
+
+% =======================================================================
+\section{Mögliches Konsortium und Rollenverteilung}
+% =======================================================================
+
+\begin{longtable}{L{3cm} L{4cm} L{7.5cm}}
+  \toprule
+  \textbf{Sektor} & \textbf{Partner} & \textbf{Spezifische Rolle im
+  RIA-Projekt} \\
+  \midrule
+  \endhead
+  \bottomrule
+  \endfoot
+
+  Lead \& AI
+    & Virtual Vehicle (AT)
+    & Gesamtkoordination, Entwicklung der KI-Surrogate-Modelle (Stufe~4)
+      und Systemintegration. \\[4pt]
+
+  Software \& Kinetik
+    & \textbf{MatCalc} (AT)
+    & Eigener Software-Partner: Berechnung der Phasenwandlung und
+      Ausscheidungskinetik (Stufe~1). \\[4pt]
+
+  Physics \& ICME
+    & \textbf{MCL Leoben} (AT)
+    & Leitung der Multiskalen-Kette, SVE-Generierung und Kristallplastizität
+      (Stufe~2 \& 3). \\[4pt]
+
+  Micromechanics
+    & \textbf{UNN} (UK)
+    & Spezialisierte Schadensmodellierung für Aluminium-Leichtbau und neue
+      CP-Modelle (Stufe~3). \\[4pt]
+
+  Joining Tech
+    & \textbf{LWF Paderborn} (DE)
+    & Experte für thermische Behandlung und metallographische Präparation
+      (Der "`Datenlieferant der Wahrheit"'). \\[4pt]
+
+  Process \& Mfg.
+    & \textbf{CTAG} (ES)
+    & Überwachung der Fertigungsprozesse; Kopplung von Prozess-Sensorik mit
+      Simulations-Input. \\[4pt]
+
+  Large-Scale Test
+    & \textbf{CIDAUT} (ES)
+    & Dynamische Bauteiltests (Crash) zur finalen Validierung der virtuellen
+      Karten (TRL~5). \\[4pt]
+
+  Material
+    & \textbf{voestalpine} (AT) \& \textbf{ArcelorMittal} (LU/FR),
+      \textbf{AMAG} (AT)
+    & Bereitstellung der "`metallurgischen DNA"' (Chemie, Gefüge-Basics) für
+      neue Stahlgüten (z.\,B.\ PHS). \\[4pt]
+
+  Tier-1 Supplier
+    & \textbf{Gestamp} (ES) \& \textbf{Magna} (AT)
+    & Use-Case-Provider für Strukturbauteile (B-Säule, Längsträger).
+      Brücke zur Produktion. \\[4pt]
+
+  OEM (End User)
+    & \textbf{VW / Audi / Volvo / Ford Otosan / CRF} (Stellantis)
+    & Use-Case-Provider: Definition der Crash-Lastfälle, Validierung am
+      Gesamtfahrzeugmodell, Abnahme der Workflows. \\
+\end{longtable}
+
+% =======================================================================
+\section{Workpackage-Struktur}
+% =======================================================================
+
+Das Projekt umfasst ein Budget von \textbf{6--8~Millionen Euro} mit ca.
+14--16~Partnern. Die WP-Struktur bildet den Digital Thread von der Legierung
+bis zum Gesamtfahrzeug-Crash ab.
+
+% -----------------------------------------------------------------------
+\subsection{WP\,1: Projektmanagement \& Strategische Koordination}
+% -----------------------------------------------------------------------
+\textbf{Lead:} Virtual Vehicle (ViF)
+
+Administrative Leitung, Finanzcontrolling, IP-Management und Koordination
+zwischen den 15+ Partnern. Aufbau des \emph{Project Executive Boards} mit
+Vertretern der OEMs (Audi, Volvo, Ford, etc.).
+
+% -----------------------------------------------------------------------
+\subsection{WP\,2: Werkstoff-Engineering \& Prozess-Definition}
+% -----------------------------------------------------------------------
+\textbf{Lead:} voestalpine / ArcelorMittal (Stahl) \& Aluminium-Lieferant
+(z.\,B.\ AMAG/Hydro)
+
+\textbf{Aufgaben:}
+\begin{itemize}[leftmargin=*]
+  \item Definition der Legierungsvarianten (High-Strength Steel \& Cast
+        Aluminum).
+  \item Festlegung der industriellen Randbedingungen (Wärmebehandlungszyklen
+        T4/T6, Presshärte-Parameter).
+  \item Bereitstellung von Master-Chargen für das gesamte Konsortium.
+\end{itemize}
+
+% -----------------------------------------------------------------------
+\subsection{WP\,3: Experimentelle Hochdurchsatz-Charakterisierung}
+% -----------------------------------------------------------------------
+\textbf{Lead:} LWF Paderborn
+
+\textbf{Aufgaben:}
+\begin{itemize}[leftmargin=*]
+  \item \emph{Thermisches Processing:} Durchführung der
+        Wärmebehandlungszyklen (Guss-Abkühlung, HAZ-Simulation).
+  \item \emph{Metallographie-Zentrum:} Erzeugung von Schliffbildern zur
+        Ermittlung von DAS (Dendritenarmabstand), Phasenanteilen und
+        Porosität.
+  \item \emph{Härte-Mapping:} Korrelation der Mikrostruktur mit mechanischen
+        Basiseigenschaften.
+\end{itemize}
+
+% -----------------------------------------------------------------------
+\subsection{WP\,4: Multiskalen-Physik \& Virtuelles Labor}
+% -----------------------------------------------------------------------
+\textbf{Lead:} MCL Leoben (Wissenschaft) \& MatCalc (Software)
+
+\textbf{Aufgaben:}
+\begin{itemize}[leftmargin=*]
+  \item \emph{Stufe~1 (Kinetics):} MatCalc-Simulation der Phasenbildung und
+        Ausscheidungskinetik.
+  \item \emph{Stufe~2 (SVE):} MCL baut digitale 3D-Gefüge basierend auf den
+        Schliffbildern aus WP\,3.
+  \item \emph{Stufe~3 (CP):} Kristallplastizität (MCL/UNN) zur Vorhersage
+        des lokalen Versagens (Kristall-Bruchmechanik).
+  \item Partner: UNN -- Fokus auf Aluminium-Schädigung.
+\end{itemize}
+
+% -----------------------------------------------------------------------
+\subsection{WP\,5: KI-Homogenisierung \& Tool-Integration}
+% -----------------------------------------------------------------------
+\textbf{Lead:} Virtual Vehicle (ViF)
+
+\textbf{Aufgaben:}
+\begin{itemize}[leftmargin=*]
+  \item \emph{Surrogate Modeling:} Training von Neuronalen Netzen mit den
+        Daten aus WP\,4.
+  \item \emph{Mapping-Algorithmen:} Transfer von Guss-Parametern (Porosität)
+        auf das Crash-Mesh.
+  \item \emph{Software-Schnittstellen:} Integration in kommerzielle Solver
+        (LS-DYNA / PAM-CRASH) mittels VMAP-Standard.
+\end{itemize}
+
+% -----------------------------------------------------------------------
+\subsection{WP\,6: Demonstratoren \& System-Validierung (TRL\,5/6)}
+% -----------------------------------------------------------------------
+\textbf{Lead:} CIDAUT / CTAG (Experiment) \& Gestamp / Magna (Fertigung)
+
+\textbf{Aufgaben:}
+\begin{itemize}[leftmargin=*]
+  \item Herstellung realer Bauteil-Demonstratoren (z.\,B.\ Gigacasting-Knoten
+        oder B-Säule).
+  \item \emph{Crash-Validierung:} Durchführung von Fallturm- und
+        Schlittentests.
+  \item Vergleich der Vorhersagegenauigkeit: Virtuelle ICME-Karte vs.
+        Realer Crash.
+\end{itemize}
+
+% -----------------------------------------------------------------------
+\subsection{WP\,7: Industrielle Use Cases \& OEM-Akzeptanz}
+% -----------------------------------------------------------------------
+\textbf{Lead:} OEMs (VW/Audi, Volvo, Ford Otosan, CRF)
+
+\textbf{Aufgaben je Partner:}
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Audi/VW:} Fokus auf Großserien-Stahlstrukturen \&
+        Batterie-Crash.
+  \item \textbf{Volvo:} Fokus auf Gigacasting-Strukturen und Virtual Testing
+        Standards.
+  \item \textbf{Ford Otosan:} Fokus auf schwere Nutzfahrzeugstrukturen
+        (andere Dicken/Lasten).
+  \item \textbf{CRF:} Multi-Material-Mix in der Kleinwagen-Plattform.
+  \item \textbf{Magna/Gestamp:} Bewertung der prozessseitigen Robustheit.
+\end{itemize}
+
+% -----------------------------------------------------------------------
+\subsection{WP\,8: Exploitation, Standardisierung \& Dissemination}
+% -----------------------------------------------------------------------
+\textbf{Lead:} ESI Group (oder ViF)
+
+Kommerzielle Verwertung (Software-Plugins), wissenschaftliche Publikationen
+und Training der nächsten Generation von Ingenieuren (\emph{Young Researcher
+Programme}).
+
+% =======================================================================
+\section{Logischer Datenfluss (Gantt-Logik)}
+% =======================================================================
+
+\begin{description}[leftmargin=*]
+  \item[Monat 1--12:] WP\,2 \& 3 liefern die physischen und
+        metallographischen Daten (Schliffbilder).
+  \item[Monat 6--24:] WP\,4 nutzt diese Daten für die tiefen physikalischen
+        Modelle (MCL/MatCalc).
+  \item[Monat 18--36:] WP\,5 trainiert die KI und baut die Schnittstellen.
+  \item[Monat 24--42:] WP\,6 \& 7 validieren die Ergebnisse an echten
+        Bauteilen; OEMs implementieren die Workflows.
+\end{description}
+
+% =======================================================================
+\section{Budget-Allokation (Beispiel bei 8\,Mio.\ €)}
+% =======================================================================
+
+\begin{tabular}{L{6cm} r l}
+  \toprule
+  \textbf{Workpackage} & \textbf{Anteil} & \textbf{Betrag} \\
+  \midrule
+  WP\,1 (Management)                   & 5\,\%  & \~{}400\,k€ \\
+  WP\,2 \& 3 (Material/Experiment)     & 20\,\% & \~{}1.600\,k€ \\
+  WP\,4 (Physik/ICME)                  & 30\,\% & \~{}2.400\,k€ \\
+  WP\,5 (KI/Software)                  & 20\,\% & \~{}1.600\,k€ \\
+  WP\,6 \& 7 (Validation/OEMs)         & 20\,\% & \~{}1.600\,k€ \\
+  WP\,8 (Exploitation)                 & 5\,\%  & \~{}400\,k€ \\
+  \bottomrule
+\end{tabular}
+
+% =======================================================================
+\section{Wichtige Meilensteine (Milestones)}
+% =======================================================================
+
+\begin{description}[leftmargin=*]
+  \item[MS\,1 (M12):] Master-Schliffbild-Datenbank für Al-Guss \& PHS-Stahl
+        verfügbar.
+  \item[MS\,2 (M24):] Erste KI-basierte Materialkarte erfolgreich vom SVE
+        zum Makro-Modell konvergiert.
+  \item[MS\,3 (M36):] Demonstrator-Crashversuch bestätigt Fehlerreduktion
+        von $>30\,\%$ gegenüber Standardmodellen.
+\end{description}
+
+% =======================================================================
+\section{V-MAT-2030 -- Projektpitch}
+% =======================================================================
+
+\subsection*{The Digital Material Factory -- Unlocking the Future of
+  Automotive Lightweighting through AI-Driven ICME}
+
+\textbf{Die Vision.}
+Europa steht vor der Revolution der \emph{Gigacastings} und des hochfesten
+Mischbaus. Doch die traditionelle Materialcharakterisierung ist am Ende: Sie
+ist zu langsam, zu teuer und ignoriert die "`schmutzige Realität"' der
+Fertigung (Porosität, lokale Abkühlraten). \textbf{V-MAT-2030} schließt
+diesen Digital Thread von der Legierung bis zum Crash-Test~-- rein virtuell,
+physikalisch fundiert und KI-beschleunigt.
+
+\textbf{Der Workflow: Vom Atom zum Euro-NCAP.}
+Wir ersetzen hunderte physische Tests durch eine automatisierte
+5-Stufen-Toolkette:
+\begin{enumerate}[leftmargin=*]
+  \item \emph{Metallurgische DNA (MatCalc):} Simulation der Phasenbildung
+        basierend auf der Thermodynamik.
+  \item \emph{Digitaler Zwilling des Gefüges (LWF \& MCL):} Verknüpfung
+        realer Schliffbilder (DAS, Porosität) mit statistischen
+        3D-Volumenelementen (SVE).
+  \item \emph{Virtuelles Labor (MCL \& UNN):} Kristallplastizität simuliert
+        das Versagen dort, wo keine Probe hinkommt.
+  \item \emph{KI-Translation (ViF):} Machine Learning komprimiert Terabytes
+        an Mikro-Daten in performante Makro-Materialkarten.
+  \item \emph{Industrielle Validierung (CTAG, CIDAUT, OEMs):} Absicherung an
+        realen Megacastings und B-Säulen.
+\end{enumerate}
+
+\textbf{Der wissenschaftliche Fokus: Mikrostruktur-DNA.}
+Der Kern des Projekts ist die Erkenntnis, dass das Gefüge die Mechanik
+diktiert. Wir nutzen hochauflösende Metallographie, um den
+Dendritenarmabstand (DAS) und die Phasenmorphologie als primäre
+Input-Geber für die Simulation zu etablieren.
+
+\textbf{Das \emph{Champions League} Konsortium.}
+Ein 8-Millionen-Euro-Verbund, der 40\,\% des europäischen Marktes
+repräsentiert:
+\begin{itemize}[leftmargin=*]
+  \item RTOs \& Academy: Virtual Vehicle (Lead), MCL Leoben, LWF Paderborn,
+        UNN, CTAG, CIDAUT.
+  \item Software-Enabler: MatCalc, ESI Group.
+  \item Material-Provider: voestalpine, ArcelorMittal, AMAG/Hydro.
+  \item Use-Case-Provider \& OEMs: VW/Audi, Volvo, Ford Otosan, CRF
+        (Stellantis), Magna, Gestamp.
+\end{itemize}
+
+\textbf{Strategische Ziele \& Impact (KPIs):}
+\begin{itemize}[leftmargin=*]
+  \item \textbf{Time-to-Market:} Reduktion der Materialabsicherung um
+        $-80\,\%$.
+  \item \textbf{Kosten:} Einsparung durch Wegfall von ca.\ $90\,\%$ der
+        physischen Charakterisierungstests.
+  \item \textbf{Leichtbau:} Ermöglicht $-15\,\%$ Gewichtseinsparung bei
+        Megacastings durch präzise Vorhersage lokaler Eigenschaften statt
+        hoher Sicherheitsfaktoren.
+  \item \textbf{Nachhaltigkeit:} Erstmalige sichere Integration von
+        Sekundär-Aluminium in crashrelevante Strukturen durch virtuelle
+        Fehler-Modellierung.
+\end{itemize}
+
+% =======================================================================
+\section{Strategische Positionierungsoptionen}
+% =======================================================================
+
+\subsection{Option~1: Der \emph{Physics-First}-Weg (Klassische RIA)}
+
+\begin{description}[leftmargin=*, style=nextline]
+  \item[Fokus:] Tiefgreifende wissenschaftliche Exzellenz; Lösung der
+        Bruchmechanik auf Kornebene.
+  \item[Kernargument:] "`Wir verstehen die Physik so gut, dass wir keine
+        Experimente mehr brauchen."'
+  \item[Stärke:] Extrem hohe Bewertung im Bereich "`Excellence"'. Gut für
+        UNN und MCL.
+  \item[Passt zu Calls, die:] Radikale Innovationen und \emph{Breakthrough
+        Science} fordern.
+\end{description}
+
+\subsection{Option~2: Der \emph{Pragmatic-AI}-Weg (Digitaler Schatten)}
+
+\begin{description}[leftmargin=*, style=nextline]
+  \item[Fokus:] Datengetriebene Korrelation von Schliffbildern zu
+        Materialkarten.
+  \item[Kernargument:] "`Wir nutzen die KI, um das Expertenwissen der
+        Metallographie (LWF) in Sekunden auf das ganze Auto zu übertragen."'
+  \item[Stärke:] Sehr hohe Bewertung bei "`Impact"' und "`Exploitation"'. Gut
+        für ViF, MatCalc und die Softwarehäuser (ESI).
+  \item[Passt zu Calls, die:] Digitalisierung der Industrie, KI in der
+        Produktion oder "`Twin Transition"' zum Thema haben.
+\end{description}
+
+\subsection{Option~3: Der \emph{Gigacasting-Sovereignty}-Weg
+           (Application-Driven)}
+
+\begin{description}[leftmargin=*, style=nextline]
+  \item[Fokus:] Die größte aktuelle Herausforderung der europäischen
+        Automotive-Industrie: Megacastings.
+  \item[Kernargument:] "`Ohne unsere Toolkette kann Europa den Vorsprung von
+        Tesla bei großen Gussstrukturen nicht einholen, ohne die Sicherheit
+        zu gefährden."'
+  \item[Stärke:] Höchste politische Relevanz; zieht die OEMs (Volvo, Audi,
+        Ford) massiv an.
+  \item[Passt zu Calls, die:] Mobilität, Zero-Emission-Fahrzeuge oder die
+        Stärkung der europäischen Lieferkette (IAM4EU) adressieren.
+\end{description}
+
+\end{document}
