@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1920" height="1080" viewBox="0 0 1920 1080" role="img" aria-labelledby="title desc">
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" role="img" aria-labelledby="title desc">
   <title id="title">ICME4CRASH Workflow Overview</title>
   <desc id="desc">Workflow mit eingebetteten Pixel-Bildern für die ICME-Prozesskette.</desc>
 
@@ -29,7 +29,7 @@
   <g font-family="Inter, Segoe UI, Arial, sans-serif" filter="url(#shadow)">
     <g id="s1" transform="translate(95, 215)">
       <rect width="300" height="620" rx="22" fill="#ffffff" stroke="#cdd7e5" stroke-width="2"/>
-      <image x="24" y="26" width="252" height="410" preserveAspectRatio="xMidYMid meet" xlink:href="step1_thermo_kinetics.png" href="step1_thermo_kinetics.png"/>
+      <image x="24" y="26" width="252" height="410" preserveAspectRatio="xMidYMid meet" href="step1_thermo_kinetics.png"/>
       <text x="150" y="475" text-anchor="middle" font-size="22" font-weight="700" fill="#0f172a">1. Thermo-Kinetik</text>
       <text x="150" y="509" text-anchor="middle" font-size="18" fill="#334155">CALPHAD + Kinetik</text>
       <text x="150" y="540" text-anchor="middle" font-size="18" fill="#334155">Phasen &amp; Ausscheidungen</text>
@@ -37,7 +37,7 @@
 
     <g id="s2" transform="translate(420, 215)">
       <rect width="300" height="620" rx="22" fill="#ffffff" stroke="#cdd7e5" stroke-width="2"/>
-      <image x="24" y="26" width="252" height="410" preserveAspectRatio="xMidYMid meet" xlink:href="step2_microstructure_cube.png" href="step2_microstructure_cube.png"/>
+      <image x="24" y="26" width="252" height="410" preserveAspectRatio="xMidYMid meet" href="step2_microstructure_cube.png"/>
       <text x="150" y="475" text-anchor="middle" font-size="22" font-weight="700" fill="#0f172a">2. SVE-Generierung</text>
       <text x="150" y="509" text-anchor="middle" font-size="18" fill="#334155">Stochastische Gefüge</text>
       <text x="150" y="540" text-anchor="middle" font-size="18" fill="#334155">digitale Zwillinge</text>
@@ -45,7 +45,7 @@
 
     <g id="s3" transform="translate(745, 215)">
       <rect width="300" height="620" rx="22" fill="#ffffff" stroke="#cdd7e5" stroke-width="2"/>
-      <image x="24" y="26" width="252" height="410" preserveAspectRatio="xMidYMid meet" xlink:href="step3_crystal_plasticity.png" href="step3_crystal_plasticity.png"/>
+      <image x="24" y="26" width="252" height="410" preserveAspectRatio="xMidYMid meet" href="step3_crystal_plasticity.png"/>
       <text x="150" y="475" text-anchor="middle" font-size="22" font-weight="700" fill="#0f172a">3. Kristallplastizität</text>
       <text x="150" y="509" text-anchor="middle" font-size="18" fill="#334155">CPFFT / CPFEM</text>
       <text x="150" y="540" text-anchor="middle" font-size="18" fill="#334155">virtuelle Prüfungen</text>
@@ -53,7 +53,7 @@
 
     <g id="s4" transform="translate(1070, 215)">
       <rect width="300" height="620" rx="22" fill="#ffffff" stroke="#cdd7e5" stroke-width="2"/>
-      <image x="24" y="26" width="252" height="410" preserveAspectRatio="xMidYMid meet" xlink:href="step4_failure_surface.png" href="step4_failure_surface.png"/>
+      <image x="24" y="26" width="252" height="410" preserveAspectRatio="xMidYMid meet" href="step4_failure_surface.png"/>
       <text x="150" y="475" text-anchor="middle" font-size="22" font-weight="700" fill="#0f172a">4. Surrogate + KI</text>
       <text x="150" y="509" text-anchor="middle" font-size="18" fill="#334155">Datenverdichtung</text>
       <text x="150" y="540" text-anchor="middle" font-size="18" fill="#334155">Versagensflächen</text>
@@ -61,7 +61,7 @@
 
     <g id="s5" transform="translate(1395, 215)">
       <rect width="300" height="620" rx="22" fill="#ffffff" stroke="#cdd7e5" stroke-width="2"/>
-      <image x="24" y="26" width="252" height="410" preserveAspectRatio="xMidYMid meet" xlink:href="step5_material_card.png" href="step5_material_card.png"/>
+      <image x="24" y="26" width="252" height="410" preserveAspectRatio="xMidYMid meet" href="step5_material_card.png"/>
       <text x="150" y="475" text-anchor="middle" font-size="22" font-weight="700" fill="#0f172a">5. Materialkarte</text>
       <text x="150" y="509" text-anchor="middle" font-size="18" fill="#334155">GISSMO / MMC</text>
       <text x="150" y="540" text-anchor="middle" font-size="18" fill="#334155">Crash-ready Output</text>
@@ -79,7 +79,7 @@
   <!-- Final overview callout -->
   <g transform="translate(735, 880)" filter="url(#shadow)">
     <rect width="450" height="150" rx="20" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>
-    <image x="20" y="20" width="110" height="110" preserveAspectRatio="xMidYMid meet" xlink:href="step6_workflow_overview.png" href="step6_workflow_overview.png"/>
+    <image x="20" y="20" width="110" height="110" preserveAspectRatio="xMidYMid meet" href="step6_workflow_overview.png"/>
     <text x="150" y="64" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="30" font-weight="700" fill="#0f172a">Workflow-Übersicht</text>
     <text x="150" y="102" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="20" fill="#334155">Konsolidierte Pipeline für ICME4CRASH</text>
   </g>
