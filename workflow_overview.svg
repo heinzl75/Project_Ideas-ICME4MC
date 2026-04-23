@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 490"
+     width="1400" height="490"
+     font-family="Arial, Helvetica, sans-serif">
+
+  <defs>
+    <!-- Arrow marker -->
+    <marker id="arr" markerWidth="10" markerHeight="7" refX="9" refY="3.5"
+            orient="auto" markerUnits="userSpaceOnUse">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#546E7A"/>
+    </marker>
+
+    <!-- Drop shadow filter -->
+    <filter id="sh" x="-5%" y="-5%" width="110%" height="110%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3" result="blur"/>
+      <feOffset dx="0" dy="2" result="offsetBlur"/>
+      <feFlood flood-color="#000000" flood-opacity="0.10" result="color"/>
+      <feComposite in="color" in2="offsetBlur" operator="in" result="shadow"/>
+      <feMerge>
+        <feMergeNode in="shadow"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- ═══════════════════════════════════════════
+       BACKGROUND
+       ═══════════════════════════════════════════ -->
+  <rect width="1400" height="490" fill="#ECEFF1"/>
+
+  <!-- ═══════════════════════════════════════════
+       HEADER
+       ═══════════════════════════════════════════ -->
+  <rect x="0" y="0" width="1400" height="78" fill="#1A237E"/>
+  <text x="700" y="30" text-anchor="middle"
+        font-size="20" font-weight="bold" fill="#FFFFFF">
+    ICME-Workflow: Virtuelle Materialkarten-Entwicklung für BIW-Stähle
+  </text>
+  <text x="700" y="56" text-anchor="middle" font-size="12" fill="#9FA8DA">
+    MatCalc · DAMASK (CPFFT) · PyTorch · LS-OPT · GISSMO
+    |  Vollständig virtueller Prozess – kein physisches Testen erforderlich
+  </text>
+
+  <!-- ═══════════════════════════════════════════
+       ARROWS  (y_center = 94 + 153 = 247)
+       Step widths: 240px each, gap: 40px, left margin: 20
+       Box right edges: 260, 540, 820, 1100
+       Box left edges:  300, 580, 860, 1140
+       ═══════════════════════════════════════════ -->
+  <!-- Arrow 1 → 2 -->
+  <line x1="263" y1="247" x2="296" y2="247"
+        stroke="#546E7A" stroke-width="2.5" marker-end="url(#arr)"/>
+  <!-- Arrow 2 → 3 -->
+  <line x1="543" y1="247" x2="576" y2="247"
+        stroke="#546E7A" stroke-width="2.5" marker-end="url(#arr)"/>
+  <!-- Arrow 3 → 4 -->
+  <line x1="823" y1="247" x2="856" y2="247"
+        stroke="#546E7A" stroke-width="2.5" marker-end="url(#arr)"/>
+  <!-- Arrow 4 → 5 -->
+  <line x1="1103" y1="247" x2="1136" y2="247"
+        stroke="#546E7A" stroke-width="2.5" marker-end="url(#arr)"/>
+
+  <!-- ═══════════════════════════════════════════
+       STEP 1  (x=20, color=#1565C0 – Steel Blue)
+       ═══════════════════════════════════════════ -->
+  <g filter="url(#sh)">
+    <rect x="20"  y="94" width="240" height="306" rx="8" fill="white"/>
+    <!-- Colored header strip -->
+    <rect x="20"  y="94" width="240" height="52"  rx="8" fill="#1565C0"/>
+    <rect x="20"  y="126" width="240" height="20"       fill="#1565C0"/>
+    <!-- Step badge -->
+    <circle cx="47" cy="120" r="16" fill="white" stroke="#1565C0" stroke-width="1.5"/>
+    <text x="47" y="125" text-anchor="middle"
+          font-size="13" font-weight="bold" fill="#1565C0">1</text>
+    <!-- Header title -->
+    <text x="70" y="114" font-size="11" font-weight="bold" fill="white">Thermo-Kinetische</text>
+    <text x="70" y="130" font-size="11" font-weight="bold" fill="white">Prozesssimulation</text>
+    <!-- Tool chip -->
+    <rect x="28" y="157" width="224" height="22" rx="5" fill="#E3F2FD"/>
+    <text x="140" y="172" text-anchor="middle"
+          font-size="10" font-weight="bold" fill="#0D47A1">MatCalc · CALPHAD</text>
+    <!-- Separator -->
+    <line x1="28" y1="189" x2="252" y2="189" stroke="#EEEEEE" stroke-width="1"/>
+    <!-- Content bullets -->
+    <text x="26" y="205" font-size="10.5" fill="#37474F">&#x25B8; Phasenumwandlungen (TTT/CCT)</text>
+    <text x="26" y="221" font-size="10.5" fill="#37474F">&#x25B8; Ausscheidungskinetik</text>
+    <text x="26" y="237" font-size="10.5" fill="#37474F">&#x25B8; Martensit-/Bainit-Anteile</text>
+    <text x="26" y="253" font-size="10.5" fill="#37474F">&#x25B8; Kinetische Ratengleichungen</text>
+    <!-- Output -->
+    <line x1="28" y1="265" x2="252" y2="265" stroke="#EEEEEE" stroke-width="1"/>
+    <text x="28" y="279" font-size="9" font-weight="bold" fill="#90A4AE" letter-spacing="0.5">OUTPUT</text>
+    <text x="28" y="294" font-size="10.5" font-weight="bold" fill="#1565C0">Phasenzusammensetzung</text>
+    <text x="28" y="309" font-size="10.5" font-weight="bold" fill="#1565C0">+ Ausscheidungen je T(t)</text>
+    <!-- Input -->
+    <line x1="28" y1="320" x2="252" y2="320" stroke="#EEEEEE" stroke-width="1"/>
+    <text x="28" y="334" font-size="9" font-weight="bold" fill="#90A4AE" letter-spacing="0.5">INPUT</text>
+    <text x="28" y="349" font-size="9.5" fill="#78909C">Legierung + T(t)-Verlauf</text>
+    <text x="28" y="363" font-size="9.5" fill="#78909C">Prozessparameter</text>
+    <text x="28" y="377" font-size="9.5" fill="#78909C">Abkühlgeschwindigkeit</text>
+  </g>
+
+  <!-- ═══════════════════════════════════════════
+       STEP 2  (x=300, color=#2E7D32 – Forest Green)
+       ═══════════════════════════════════════════ -->
+  <g filter="url(#sh)">
+    <rect x="300" y="94" width="240" height="306" rx="8" fill="white"/>
+    <rect x="300" y="94" width="240" height="52"  rx="8" fill="#2E7D32"/>
+    <rect x="300" y="126" width="240" height="20"       fill="#2E7D32"/>
+    <circle cx="327" cy="120" r="16" fill="white" stroke="#2E7D32" stroke-width="1.5"/>
+    <text x="327" y="125" text-anchor="middle"
+          font-size="13" font-weight="bold" fill="#2E7D32">2</text>
+    <text x="350" y="114" font-size="11" font-weight="bold" fill="white">SVE-Generierung</text>
+    <text x="350" y="130" font-size="11" font-weight="bold" fill="white">Voronoi · EBSD · Textur</text>
+    <rect x="308" y="157" width="224" height="22" rx="5" fill="#E8F5E9"/>
+    <text x="420" y="172" text-anchor="middle"
+          font-size="10" font-weight="bold" fill="#1B5E20">Neper · DREAM.3D</text>
+    <line x1="308" y1="189" x2="532" y2="189" stroke="#EEEEEE" stroke-width="1"/>
+    <text x="306" y="205" font-size="10.5" fill="#37474F">&#x25B8; Voronoi-Tesselation</text>
+    <text x="306" y="221" font-size="10.5" fill="#37474F">&#x25B8; EBSD-basierte Textur</text>
+    <text x="306" y="237" font-size="10.5" fill="#37474F">&#x25B8; Stochast. Korngrößenvertlg.</text>
+    <text x="306" y="253" font-size="10.5" fill="#37474F">&#x25B8; Phase + Orientierung (Euler)</text>
+    <line x1="308" y1="265" x2="532" y2="265" stroke="#EEEEEE" stroke-width="1"/>
+    <text x="308" y="279" font-size="9" font-weight="bold" fill="#90A4AE" letter-spacing="0.5">OUTPUT</text>
+    <text x="308" y="294" font-size="10.5" font-weight="bold" fill="#2E7D32">Stochastisches SVE-Ensemble</text>
+    <text x="308" y="309" font-size="10.5" font-weight="bold" fill="#2E7D32">(Polykristall-Würfel)</text>
+    <line x1="308" y1="320" x2="532" y2="320" stroke="#EEEEEE" stroke-width="1"/>
+    <text x="308" y="334" font-size="9" font-weight="bold" fill="#90A4AE" letter-spacing="0.5">INPUT</text>
+    <text x="308" y="349" font-size="9.5" fill="#78909C">Phasenzusammensetzung</text>
+    <text x="308" y="363" font-size="9.5" fill="#78909C">EBSD-Messdaten + Textur</text>
+    <text x="308" y="377" font-size="9.5" fill="#78909C">Korngrößenstatistik</text>
+  </g>
+
+  <!-- ═══════════════════════════════════════════
+       STEP 3  (x=580, color=#6A1B9A – Purple)
+       ═══════════════════════════════════════════ -->
+  <g filter="url(#sh)">
+    <rect x="580" y="94" width="240" height="306" rx="8" fill="white"/>
+    <rect x="580" y="94" width="240" height="52"  rx="8" fill="#6A1B9A"/>
+    <rect x="580" y="126" width="240" height="20"       fill="#6A1B9A"/>
+    <circle cx="607" cy="120" r="16" fill="white" stroke="#6A1B9A" stroke-width="1.5"/>
+    <text x="607" y="125" text-anchor="middle"
+          font-size="13" font-weight="bold" fill="#6A1B9A">3</text>
+    <text x="630" y="114" font-size="11" font-weight="bold" fill="white">Kristallplastizität</text>
+    <text x="630" y="130" font-size="11" font-weight="bold" fill="white">CPFFT / CPFEM</text>
+    <rect x="588" y="157" width="224" height="22" rx="5" fill="#F3E5F5"/>
+    <text x="700" y="172" text-anchor="middle"
+          font-size="10" font-weight="bold" fill="#4A148C">DAMASK · Gleitsysteme</text>
+    <line x1="588" y1="189" x2="812" y2="189" stroke="#EEEEEE" stroke-width="1"/>
+    <text x="586" y="205" font-size="10.5" fill="#37474F">&#x25B8; Virtuelle &#x3C3;-&#x3B5;-Kurven</text>
+    <text x="586" y="221" font-size="10.5" fill="#37474F">&#x25B8; Versch. Spannungszustände</text>
+    <text x="586" y="237" font-size="10.5" fill="#37474F">&#x25B8; Versetzungsdichte-Evolution</text>
+    <text x="586" y="253" font-size="10.5" fill="#37474F">&#x25B8; Schädigungsinitiation</text>
+    <line x1="588" y1="265" x2="812" y2="265" stroke="#EEEEEE" stroke-width="1"/>
+    <text x="588" y="279" font-size="9" font-weight="bold" fill="#90A4AE" letter-spacing="0.5">OUTPUT</text>
+    <text x="588" y="294" font-size="10.5" font-weight="bold" fill="#6A1B9A">Virtuelle Versuchsdaten</text>
+    <text x="588" y="309" font-size="10.5" font-weight="bold" fill="#6A1B9A">(&#x3C3;-&#x3B5;, Schädigung, Streuung)</text>
+    <line x1="588" y1="320" x2="812" y2="320" stroke="#EEEEEE" stroke-width="1"/>
+    <text x="588" y="334" font-size="9" font-weight="bold" fill="#90A4AE" letter-spacing="0.5">INPUT</text>
+    <text x="588" y="349" font-size="9.5" fill="#78909C">SVE-Ensemble</text>
+    <text x="588" y="363" font-size="9.5" fill="#78909C">Deformationsmodi (&#x3B7; = 0..0.67)</text>
+    <text x="588" y="377" font-size="9.5" fill="#78909C">Dehnraten + Temperatur</text>
+  </g>
+
+  <!-- ═══════════════════════════════════════════
+       STEP 4  (x=860, color=#BF360C – Deep Orange)
+       ═══════════════════════════════════════════ -->
+  <g filter="url(#sh)">
+    <rect x="860" y="94" width="240" height="306" rx="8" fill="white"/>
+    <rect x="860" y="94" width="240" height="52"  rx="8" fill="#BF360C"/>
+    <rect x="860" y="126" width="240" height="20"       fill="#BF360C"/>
+    <circle cx="887" cy="120" r="16" fill="white" stroke="#BF360C" stroke-width="1.5"/>
+    <text x="887" y="125" text-anchor="middle"
+          font-size="13" font-weight="bold" fill="#BF360C">4</text>
+    <text x="910" y="114" font-size="11" font-weight="bold" fill="white">KI-Surrogate Modeling</text>
+    <text x="910" y="130" font-size="11" font-weight="bold" fill="white">&amp; Versagensfläche</text>
+    <rect x="868" y="157" width="224" height="22" rx="5" fill="#FBE9E7"/>
+    <text x="980" y="172" text-anchor="middle"
+          font-size="10" font-weight="bold" fill="#870000">PyTorch · PINN · Monte-Carlo</text>
+    <line x1="868" y1="189" x2="1092" y2="189" stroke="#EEEEEE" stroke-width="1"/>
+    <text x="866" y="205" font-size="10.5" fill="#37474F">&#x25B8; Versagenslokus (GISSMO/MMC)</text>
+    <text x="866" y="221" font-size="10.5" fill="#37474F">&#x25B8; Streuband (Monte-Carlo)</text>
+    <text x="866" y="237" font-size="10.5" fill="#37474F">&#x25B8; PINN-Training</text>
+    <text x="866" y="253" font-size="10.5" fill="#37474F">&#x25B8; Statistisches Upscaling</text>
+    <line x1="868" y1="265" x2="1092" y2="265" stroke="#EEEEEE" stroke-width="1"/>
+    <text x="868" y="279" font-size="9" font-weight="bold" fill="#90A4AE" letter-spacing="0.5">OUTPUT</text>
+    <text x="868" y="294" font-size="10.5" font-weight="bold" fill="#BF360C">Versagensfläche + Streuband</text>
+    <text x="868" y="309" font-size="10.5" font-weight="bold" fill="#BF360C">(kalibriert, statistisch)</text>
+    <line x1="868" y1="320" x2="1092" y2="320" stroke="#EEEEEE" stroke-width="1"/>
+    <text x="868" y="334" font-size="9" font-weight="bold" fill="#90A4AE" letter-spacing="0.5">INPUT</text>
+    <text x="868" y="349" font-size="9.5" fill="#78909C">Virtuelle Versuchsdaten</text>
+    <text x="868" y="363" font-size="9.5" fill="#78909C">&#x3C3;-&#x3B5; + Versagenspunkte</text>
+    <text x="868" y="377" font-size="9.5" fill="#78909C">Triaxialitätswerte &#x3B7;</text>
+  </g>
+
+  <!-- ═══════════════════════════════════════════
+       STEP 5  (x=1140, color=#B71C1C – Crimson)
+       ═══════════════════════════════════════════ -->
+  <g filter="url(#sh)">
+    <rect x="1140" y="94" width="240" height="306" rx="8" fill="white"/>
+    <rect x="1140" y="94" width="240" height="52"  rx="8" fill="#B71C1C"/>
+    <rect x="1140" y="126" width="240" height="20"       fill="#B71C1C"/>
+    <circle cx="1167" cy="120" r="16" fill="white" stroke="#B71C1C" stroke-width="1.5"/>
+    <text x="1167" y="125" text-anchor="middle"
+          font-size="13" font-weight="bold" fill="#B71C1C">5</text>
+    <text x="1190" y="114" font-size="11" font-weight="bold" fill="white">Materialkarten-</text>
+    <text x="1190" y="130" font-size="11" font-weight="bold" fill="white">Kalibrierung</text>
+    <rect x="1148" y="157" width="224" height="22" rx="5" fill="#FFEBEE"/>
+    <text x="1260" y="172" text-anchor="middle"
+          font-size="10" font-weight="bold" fill="#7F0000">LS-OPT · GISSMO · MMC</text>
+    <line x1="1148" y1="189" x2="1372" y2="189" stroke="#EEEEEE" stroke-width="1"/>
+    <text x="1146" y="205" font-size="10.5" fill="#37474F">&#x25B8; GISSMO-Kalibrierungsiter.</text>
+    <text x="1146" y="221" font-size="10.5" fill="#37474F">&#x25B8; Mesh-Größen-Regularisierung</text>
+    <text x="1146" y="237" font-size="10.5" fill="#37474F">&#x25B8; Optimierungskonvergenz</text>
+    <text x="1146" y="253" font-size="10.5" fill="#37474F">&#x25B8; Multi-Mesh-Validierung</text>
+    <line x1="1148" y1="265" x2="1372" y2="265" stroke="#EEEEEE" stroke-width="1"/>
+    <text x="1148" y="279" font-size="9" font-weight="bold" fill="#90A4AE" letter-spacing="0.5">OUTPUT</text>
+    <text x="1148" y="294" font-size="10.5" font-weight="bold" fill="#B71C1C">Validierte Materialkarte</text>
+    <text x="1148" y="309" font-size="10.5" font-weight="bold" fill="#B71C1C">(LS-DYNA / PAM-CRASH)</text>
+    <line x1="1148" y1="320" x2="1372" y2="320" stroke="#EEEEEE" stroke-width="1"/>
+    <text x="1148" y="334" font-size="9" font-weight="bold" fill="#90A4AE" letter-spacing="0.5">INPUT</text>
+    <text x="1148" y="349" font-size="9.5" fill="#78909C">Versagensfläche + Streuband</text>
+    <text x="1148" y="363" font-size="9.5" fill="#78909C">Experimentelle Referenzdaten</text>
+    <text x="1148" y="377" font-size="9.5" fill="#78909C">LS-DYNA Elementgrößen</text>
+  </g>
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════════════ -->
+  <rect x="0" y="412" width="1400" height="78" fill="#1A237E"/>
+  <text x="700" y="443" text-anchor="middle"
+        font-size="13" font-weight="bold" fill="#90CAF9">
+    &#x2713; Ergebnis des ICME-Workflows
+  </text>
+  <text x="700" y="466" text-anchor="middle" font-size="13" fill="white">
+    Vollständig validierte Multi-Mesh-Materialkarte für LS-DYNA / PAM-CRASH
+    – ohne physische Zugversuche
+  </text>
+
+</svg>
